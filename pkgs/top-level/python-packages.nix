@@ -4624,6 +4624,8 @@ in {
 
   linecache2 = callPackage ../development/python-modules/linecache2 { };
 
+  lingua-franca = callPackage ../development/python-modules/lingua-franca { };
+
   line_profiler = callPackage ../development/python-modules/line_profiler { };
 
   linkify-it-py = callPackage ../development/python-modules/linkify-it-py { };
