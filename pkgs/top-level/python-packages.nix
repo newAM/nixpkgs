@@ -5192,6 +5192,12 @@ in {
 
   mxnet = callPackage ../development/python-modules/mxnet { };
 
+  mycroft-core = callPackage ../development/python-modules/mycroft-core { };
+
+  mycroft-messagebus-client = callPackage ../development/python-modules/mycroft-messagebus-client { };
+
+  mycroft-skills-manager = callPackage ../development/python-modules/mycroft-skills-manager { };
+
   myfitnesspal = callPackage ../development/python-modules/myfitnesspal { };
 
   mygpoclient = callPackage ../development/python-modules/mygpoclient { };
@@ -9158,6 +9164,8 @@ in {
   speaklater = callPackage ../development/python-modules/speaklater { };
 
   spectral-cube = callPackage ../development/python-modules/spectral-cube { };
+
+  speechrecognition = callPackage ../development/python-modules/speechrecognition { };
 
   speedtest-cli = callPackage ../development/python-modules/speedtest-cli { };
 
