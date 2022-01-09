@@ -5694,6 +5694,8 @@ in {
 
   packet-python = callPackage ../development/python-modules/packet-python { };
 
+  padaos = callPackage ../development/python-modules/padaos { };
+
   pafy = callPackage ../development/python-modules/pafy { };
 
   pagelabels = callPackage ../development/python-modules/pagelabels { };
