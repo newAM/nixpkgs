@@ -200,6 +200,8 @@ in {
 
   adal = callPackage ../development/python-modules/adal { };
 
+  adapt-parser = callPackage ../development/python-modules/adapt-parser { };
+
   adax = callPackage ../development/python-modules/adax { };
 
   adb-enhanced = callPackage ../development/python-modules/adb-enhanced { };
