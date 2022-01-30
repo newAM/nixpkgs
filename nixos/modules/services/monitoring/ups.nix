@@ -98,6 +98,11 @@ let
     NUT_STATEPATH = "/var/lib/nut/";
   };
 
+  bindPaths = [
+    serviceEnv.NUT_CONFPATH
+    serviceEnv.NUT_STATEPATH
+  ];
+
 in
 
 
@@ -247,6 +252,47 @@ in
         Type = "forking";
         User = cfg.user;
         Group = cfg.group;
+
+        DevicePolicy = "closed";
+        CapabilityBoundingSet = "";
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        DeviceAllow = "";
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectSystem = "strict";
+        BindPaths = bindPaths;
+        MemoryDenyWriteExecute = true;
+        LockPersonality = true;
+        RemoveIPC = true;
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "~@clock"
+          "~@debug"
+          "~@module"
+          "~@mount"
+          "~@raw-io"
+          "~@swap"
+          "~@privileged"
+          "~@resources"
+          "~@cpu-emulation"
+          "~@obsolete"
+          "@reboot"
+        ];
+        ProtectProc = "invisible";
+        ProtectHostname = true;
+        ProcSubset = "pid";
       };
       script = "${pkgs.nut}/sbin/upsmon";
       environment = serviceEnv;
@@ -260,6 +306,47 @@ in
         Type = "forking";
         User = cfg.user;
         Group = cfg.group;
+
+        DevicePolicy = "closed";
+        CapabilityBoundingSet = "";
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        DeviceAllow = "";
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectSystem = "strict";
+        BindPaths = bindPaths;
+        MemoryDenyWriteExecute = true;
+        LockPersonality = true;
+        RemoveIPC = true;
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "~@clock"
+          "~@debug"
+          "~@module"
+          "~@mount"
+          "~@raw-io"
+          "~@reboot"
+          "~@swap"
+          "~@privileged"
+          "~@resources"
+          "~@cpu-emulation"
+          "~@obsolete"
+        ];
+        ProtectProc = "invisible";
+        ProtectHostname = true;
+        ProcSubset = "pid";
       };
       script = "${pkgs.nut}/sbin/upsd -u ${cfg.user}";
       environment = serviceEnv;
@@ -275,6 +362,43 @@ in
         RemainAfterExit = true;
         User = cfg.user;
         Group = cfg.group;
+
+        CapabilityBoundingSet = "";
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
+        NoNewPrivileges = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectSystem = "strict";
+        BindPaths = bindPaths ++ [ "/dev/" ];
+        MemoryDenyWriteExecute = true;
+        LockPersonality = true;
+        RemoveIPC = true;
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "~@clock"
+          "~@debug"
+          "~@module"
+          "~@mount"
+          "~@raw-io"
+          "~@reboot"
+          "~@swap"
+          "~@privileged"
+          "~@resources"
+          "~@cpu-emulation"
+          "~@obsolete"
+        ];
+        ProtectProc = "invisible";
+        ProtectHostname = true;
+        ProcSubset = "pid";
       };
       environment = serviceEnv;
     };
