@@ -30,6 +30,8 @@ stdenv.mkDerivation rec {
       "--without-powerman" # Until we have it ...
       "--without-cgi"
       "--without-hal"
+      "--with-pidpath=/var/lib/nut"
+      "--with-statepath=/var/lib/nut"
       "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
       "--with-udev-dir=$(out)/etc/udev"
     ];
