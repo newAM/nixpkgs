@@ -19,7 +19,7 @@ buildPythonPackage rec {
   # If you need these, you can just add them to your environment.
 
   pname = "hypothesis";
-  version = "6.35.0";
+  version = "6.37.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     owner = "HypothesisWorks";
     repo = "hypothesis-python";
     rev = "hypothesis-python-${version}";
-    sha256 = "08wph7q3c08480ma2p7m7mamy0g7g7r5jqpwdyhdga4cfg734527";
+    sha256 = "sha256-7Mspckdubc40wm+FFp6ds2efuoZAdYg9+q/uYPj+DUw=";
   };
 
   postUnpack = "sourceRoot=$sourceRoot/hypothesis-python";
