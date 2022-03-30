@@ -1,28 +1,22 @@
-{ fetchFromGitHub, lib, rustPlatform, makeWrapper }:
+{ lib
+, rustPlatform
+, fetchFromGitHub
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "helix";
-  version = "0.6.0";
+  version = "22.03";
 
   src = fetchFromGitHub {
     owner = "helix-editor";
     repo = pname;
-    rev = "v${version}";
-    fetchSubmodules = true;
-    sha256 = "sha256-d/USOtcPLjdgzN7TBCouBRmoSDH5LZD4R5Qq7lUrWZw=";
+    rev = version;
+    sha256 = "sha256-anUYKgr61QQmdraSYpvFY/2sG5hkN3a2MwplNZMEyfI=";
   };
 
-  cargoSha256 = "sha256-/EATU7HsGNB35YOBp8sofbPd1nl4d3Ggj1ay3QuHkCI=";
+  cargoSha256 = "sha256-zJQ+KvO+6iUIb0eJ+LnMbitxaqTxfqgu7XXj3j0GiX4=";
 
-  nativeBuildInputs = [ makeWrapper ];
-
-  postInstall = ''
-    mkdir -p $out/lib
-    cp -r runtime $out/lib
-  '';
-  postFixup = ''
-    wrapProgram $out/bin/hx --set HELIX_RUNTIME $out/lib/runtime
-  '';
+  HELIX_DISABLE_AUTO_GRAMMAR_BUILD = "";
 
   meta = with lib; {
     description = "A post-modern modal text editor";
