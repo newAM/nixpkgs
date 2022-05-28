@@ -4416,6 +4416,8 @@ with pkgs;
 
   beamerpresenter = libsForQt5.callPackage ../applications/office/beamerpresenter { };
 
+  beam-studio = libsForQt5.callPackage ../applications/misc/beam-studio { };
+
   beanstalkd = callPackage ../servers/beanstalkd { };
 
   bee = callPackage ../applications/networking/bee/bee.nix {
