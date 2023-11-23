@@ -24,7 +24,7 @@ let
   # Use `import` to make sure no packages sneak in here.
   lib' = import ../../../build-support/rust/lib { inherit lib stdenv buildPackages targetPackages; };
   # Allow faster cross compiler generation by reusing Build artifacts
-  fastCross = (stdenv.buildPlatform == stdenv.hostPlatform) && (stdenv.hostPlatform != stdenv.targetPlatform);
+  fastCross = (stdenv.buildPlatform == stdenv.hostPlatform) && (stdenv.hostPlatform != stdenv.targetPlatform) && !stdenv.targetPlatform.rust.isNoStdTarget;
 in
 {
   lib = lib';
