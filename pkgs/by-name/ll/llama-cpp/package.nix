@@ -3,6 +3,7 @@
 , cmake
 , darwin
 , fetchFromGitHub
+, nixosTests
 , nix-update-script
 , stdenv
 
@@ -154,6 +155,10 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/include
     cp $src/llama.h $out/include/
   '';
+
+  passthru.tests = {
+    smoke-test = nixosTests.llama-cpp;
+  };
 
   passthru.updateScript = nix-update-script {
     attrPath = "llama-cpp";
