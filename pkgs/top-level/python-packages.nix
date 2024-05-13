@@ -14962,6 +14962,8 @@ self: super: with self; {
 
   torrequest = callPackage ../development/python-modules/torrequest { };
 
+  tortoise-tts = callPackage ../development/python-modules/tortoise-tts { };
+
   total-connect-client = callPackage ../development/python-modules/total-connect-client { };
 
   towncrier = callPackage ../development/python-modules/towncrier {
