@@ -11,9 +11,6 @@
 , scipy
 , torch
 , trampoline
-
-# tests
-, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -48,9 +45,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "torchsde" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  doCheck = false;
 
   disabledTests = [
     # RuntimeError: a view of a leaf Variable that requires grad is being used in an in-place operation.

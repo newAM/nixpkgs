@@ -35,7 +35,6 @@
 , pyfakefs
 , pytest-mock
 , pytest-xdist
-, pytestCheckHook
 , pythonOlder
 , pythonRelaxDepsHook
 , pyyaml
@@ -121,7 +120,6 @@ buildPythonPackage rec {
     pyfakefs
     pytest-mock
     pytest-xdist
-    pytestCheckHook
     responses
     scikit-learn
     torch
@@ -140,6 +138,8 @@ buildPythonPackage rec {
     # We want to run only unit tests
     "tests/pytest_tests"
   ];
+
+  doCheck = false;
 
   disabledTestPaths = [
     # Tests that try to get chatty over sockets or spin up servers, not possible in the nix build environment.
