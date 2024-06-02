@@ -53,6 +53,10 @@ python.pkgs.buildPythonApplication rec {
     pyproject.toml
     # only used for notebooks and visualization
     sed -r -i -e '/umap-learn/d' requirements.txt
+
+    substituteInPlace TTS/tts/layers/xtts/tokenizer.py \
+      --replace "from hangul_romanize import Transliter" "" \
+      --replace "from hangul_romanize.rule import academic" ""
   '';
 
   nativeBuildInputs = with python.pkgs; [
