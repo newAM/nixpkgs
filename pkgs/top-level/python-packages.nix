@@ -15476,6 +15476,8 @@ self: super: with self; {
 
   ttp-templates = callPackage ../development/python-modules/ttp-templates { };
 
+  tts = callPackage ../development/python-modules/tts { };
+
   ttstokenizer = callPackage ../development/python-modules/ttstokenizer { };
 
   tubes = callPackage ../development/python-modules/tubes { };
