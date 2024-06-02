@@ -1,18 +1,16 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, buildNpmPackage
+, fetchNpmDeps
 , fetchpatch
 , cmake
+, gitMinimal
 , pkg-config
 , avahi
-, protobuf
-, gitMinimal
-# web
-, jsoncpp
 , boost
-, nodejs
-, fetchNpmDeps
-, buildNpmPackage
+, jsoncpp
+, protobuf
 }:
 
 let
@@ -93,16 +91,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    pkg-config
     gitMinimal
+    pkg-config
   ];
 
   buildInputs = [
     avahi
+    boost # web
+    jsoncpp # web
     protobuf
-    # web
-    jsoncpp
-    boost
   ];
 
   # https://github.com/home-assistant/addons/blob/d8e2216ef532e21948678720140a45a3b4fa6f3f/openthread_border_router/Dockerfile#L67
