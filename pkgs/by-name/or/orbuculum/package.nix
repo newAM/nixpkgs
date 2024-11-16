@@ -5,6 +5,8 @@
 , ninja
 , pkg-config
 , czmq
+, libdwarf
+, libelf
 , libusb1
 , ncurses
 , SDL2
@@ -12,13 +14,13 @@
 
 stdenv.mkDerivation rec {
   pname = "orbuculum";
-  version = "2.1.0";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "orbcode";
     repo = pname;
     rev = "V${version}";
-    sha256 = "sha256-Ohcc8739W/EmDjOYhcMgzEPVhzbWrUYgsPLdy4qzxhY=";
+    hash = "sha256-n3+cfeN6G9n8pD5WyiHPENMJ0FN+bRVZe9pl81uvIrc=";
   };
 
   prePatch = ''
@@ -34,6 +36,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     czmq
+    libdwarf
+    libelf
     libusb1
     ncurses
     SDL2
