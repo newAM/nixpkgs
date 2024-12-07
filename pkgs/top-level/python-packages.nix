@@ -5898,6 +5898,8 @@ self: super: with self; {
 
   home-assistant-chip-core = callPackage ../development/python-modules/home-assistant-chip-core { };
 
+  homeassistant-api = callPackage ../development/python-modules/homeassistant-api { };
+
   homeassistant-stubs = callPackage ../servers/home-assistant/stubs.nix { };
 
   homeconnect = callPackage ../development/python-modules/homeconnect { };
