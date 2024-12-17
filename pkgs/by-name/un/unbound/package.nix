@@ -30,6 +30,8 @@
 , systemd ? null
   # optionally support DNS-over-HTTPS as a server
 , withDoH ? false
+  # optionally support DNS-over-QUIC as a server
+, withDoQ ? false
 , withECS ? false
 , withDNSCrypt ? false
 , withDNSTAP ? false
@@ -46,11 +48,19 @@
 , withLto ? !stdenv.hostPlatform.isStatic && !stdenv.hostPlatform.isMinGW
 , withMakeWrapper ? !stdenv.hostPlatform.isMinGW
 , libnghttp2
+, ngtcp2
+, quictls
 
 # for passthru.tests
 , gnutls
 }:
 
+let
+  openssl' =
+    if withDoQ
+    then quictls
+    else openssl;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "unbound";
   version = "1.22.0";
@@ -70,15 +80,16 @@ stdenv.mkDerivation (finalAttrs: {
     ++ [ pkg-config flex ]
     ++ lib.optionals withPythonModule [ swig ];
 
-  buildInputs = [ openssl nettle expat libevent ]
+  buildInputs = [ openssl' nettle expat libevent ]
     ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withDoH [ libnghttp2 ]
+    ++ lib.optionals withDoQ [ ngtcp2 ]
     ++ lib.optionals withPythonModule [ python ];
 
   enableParallelBuilding = true;
 
   configureFlags = [
-    "--with-ssl=${openssl.dev}"
+    "--with-ssl=${openssl'.dev}"
     "--with-libexpat=${expat.dev}"
     "--with-libevent=${libevent.dev}"
     "--localstatedir=/var"
@@ -97,6 +108,8 @@ stdenv.mkDerivation (finalAttrs: {
     "--with-dynlibmodule"
   ] ++ lib.optionals withDoH [
     "--with-libnghttp2=${libnghttp2.dev}"
+  ] ++ lib.optionals withDoQ [
+    "--with-libngtcp2=${ngtcp2.dev}"
   ] ++ lib.optionals withECS [
     "--enable-subnet"
   ] ++ lib.optionals withDNSCrypt [
@@ -136,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
     make unbound-event-install
   '' + lib.optionalString withMakeWrapper ''
     wrapProgram $out/bin/unbound-control-setup \
-      --prefix PATH : ${lib.makeBinPath [ openssl ]}
+      --prefix PATH : ${lib.makeBinPath [ openssl' ]}
   '' + lib.optionalString (withMakeWrapper && withPythonModule) ''
     wrapProgram $out/bin/unbound \
       --prefix PYTHONPATH : "$out/${python.sitePackages}" \
