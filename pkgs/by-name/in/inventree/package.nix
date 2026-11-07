@@ -212,6 +212,11 @@ python3Packages.buildPythonApplication rec {
     ''
       ${lib.concatStringsSep "\n" skippedFuncScripts}
 
+      # django-allauth >= 65.21.0 requires the user argument
+      substituteInPlace src/backend/InvenTree/InvenTree/middleware.py \
+        --replace-fail "did_use_passwordless_login(request)" "did_use_passwordless_login(request, request.user)" \
+        --replace-fail "get_authentication_records(request)" "get_authentication_records(request, request.user)"
+
       # Wall-clock query-time assertions are not deterministic on build machines
       substituteInPlace src/backend/InvenTree/InvenTree/unit_test.py \
         --replace-fail "self.assertLessEqual(dt, max_query_time)" "pass"
